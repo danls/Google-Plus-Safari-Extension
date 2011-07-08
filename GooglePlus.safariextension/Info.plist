@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Semimagic</string>
+	<key>Builder Version</key>
+	<string>7534.48.3</string>
+	<key>CFBundleDisplayName</key>
+	<string>GooglePlus</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.semimagic.googleplus</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>global.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>press-plus</string>
+				<key>Identifier</key>
+				<string>googleplus</string>
+				<key>Image</key>
+				<string>Add 16x16.png</string>
+				<key>Label</key>
+				<string>googleplus</string>
+				<key>Palette Label</key>
+				<string>Google+</string>
+				<key>Tool Tip</key>
+				<string>Google+</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict/>
+	</dict>
+	<key>Description</key>
+	<string>Shows Google+ notification count in Safari.</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://danls.github.com/googleplus-manifest.plist</string>
+	<key>Website</key>
+	<string>http://www.semimagic.com</string>
+</dict>
+</plist>

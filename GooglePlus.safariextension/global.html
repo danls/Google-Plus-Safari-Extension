@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<script>
+var plusNotificationCount = safari.extension.settings.plusNotificationCount;
+// console.log("loaded");
+
+checkPlusNotifications();
+setInterval(checkPlusNotifications, 5000);
+
+safari.application.addEventListener("validate", performValidate, false);
+safari.application.addEventListener("command", performCommand, false);
+ 
+function performValidate(event) {
+	switch (event.command) {
+	case "press-plus":
+		if ("badge" in event.target)
+			event.target.badge = plusNotificationCount;
+		break;
+	}
+	event.target.disabled = !event.target.browserWindow.activeTab.url;
+}
+ 
+function performCommand(event) {
+	switch (event.command) {
+	case "press-plus":
+ 		var isAlreadyOpen = false;
+ 		var browserWindows = safari.application.browserWindows;
+ 		for (var i = 0; i < browserWindows.length; ++i) {
+ 			var allTabs = browserWindows[i].tabs;
+ 			for (var x = 0; x < allTabs.length; ++x) {
+ 				if (allTabs[x].url.indexOf("plus.google.com") != -1) {
+ 					browserWindows[i].activate();
+ 					allTabs[x].activate();
+ 					isAlreadyOpen = true;
+ 					// console.log("found");
+ 					return;
+ 				}
+ 				// console.log(allTabs[x].url);
+ 			}
+ 		}
+	 	safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com";
+		break;
+	}
+}
+ 
+function validateToolbarItems() {
+	var toolbarItems = safari.extension.toolbarItems;
+	for (var i = 0; i < toolbarItems.length; ++i) {
+		if (toolbarItems[i].identifier !== "googleplus")
+			continue;
+		toolbarItems[i].validate();
+	}
+}
+
+function updatePlusNotificationCount(count) {
+	plusNotificationCount = count;
+	safari.extension.settings.plusNotificationCount = plusNotificationCount;
+	validateToolbarItems();
+}
+
+function checkPlusNotifications() {
+	var request = new XMLHttpRequest();
+	request.open("GET", "https://plus.google.com/u/0/_/n/guc");
+	request.onreadystatechange = function() {
+	    if (request.readyState != 4) return;
+	    var response = request.responseText;
+	    try {
+		    response = response.replace(")]}'", "");
+			var responseObject = eval('(' + response + ')');
+		    console.log("Setting count to:" , responseObject[1]);
+		    updatePlusNotificationCount(responseObject[1]);
+	    } catch (err) {
+	    	console.log("There was an error fetching data. Perhaps the user is not logged in?");
+	    }
+	}
+	request.send();
+}
+</script>
