@@ -22,7 +22,6 @@ function performValidate(event) {
 function performCommand(event) {
 	switch (event.command) {
 	case "press-plus":
- 		var isAlreadyOpen = false;
  		var browserWindows = safari.application.browserWindows;
  		for (var i = 0; i < browserWindows.length; ++i) {
  			var allTabs = browserWindows[i].tabs;
@@ -30,7 +29,6 @@ function performCommand(event) {
  				if (allTabs[x].url.indexOf("plus.google.com") != -1) {
  					browserWindows[i].activate();
  					allTabs[x].activate();
- 					isAlreadyOpen = true;
  					// console.log("found");
  					return;
  				}
