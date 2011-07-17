@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <script>
 var plusNotificationCount = safari.extension.settings.plusNotificationCount;
-// console.log("loaded");
+console.log("Loaded GooglePlus");
 
 checkPlusNotifications();
 setInterval(checkPlusNotifications, 5000);
@@ -16,7 +16,7 @@ function performValidate(event) {
 			event.target.badge = plusNotificationCount;
 		break;
 	}
-	event.target.disabled = !event.target.browserWindow.activeTab.url;
+	// event.target.disabled = !event.target.browserWindow.activeTab.url;
 }
  
 function performCommand(event) {
@@ -24,13 +24,16 @@ function performCommand(event) {
 	case "press-plus":
  		var browserWindows = safari.application.browserWindows;
  		for (var i = 0; i < browserWindows.length; ++i) {
+ 			// console.log(browserWindows[i].tabs);
  			var allTabs = browserWindows[i].tabs;
  			for (var x = 0; x < allTabs.length; ++x) {
- 				if (allTabs[x].url.indexOf("plus.google.com") != -1) {
- 					browserWindows[i].activate();
- 					allTabs[x].activate();
- 					// console.log("found");
- 					return;
+ 				if (typeof allTabs[x].url != 'undefined') {
+	 				if (allTabs[x].url.indexOf("plus.google.com") != -1) {
+	 					browserWindows[i].activate();
+	 					allTabs[x].activate();
+	 					// console.log("found");
+	 					return;
+	 				}
  				}
  				// console.log(allTabs[x].url);
  			}
@@ -64,10 +67,10 @@ function checkPlusNotifications() {
 	    try {
 		    response = response.replace(")]}'", "");
 			var responseObject = eval('(' + response + ')');
-		    console.log("Setting count to:" , responseObject[1]);
+		    // console.log("Setting count to:" , responseObject[1]);
 		    updatePlusNotificationCount(responseObject[1]);
 	    } catch (err) {
-	    	console.log("There was an error fetching data. Perhaps the user is not logged in?");
+	    	// console.log("There was an error fetching data. Perhaps the user is not logged in?");
 	    }
 	}
 	request.send();
