@@ -8,5 +8,29 @@
 		<key>Key</key>
 		<string>plusNotificationCount</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>5</real>
+		<key>Key</key>
+		<string>updateFrequency</string>
+		<key>Title</key>
+		<string>Check for updates every</string>
+		<key>Titles</key>
+		<array>
+			<string>1 minutes</string>
+			<string>5 minutes</string>
+			<string>15 minutes</string>
+			<string>1 hour</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>1</real>
+			<real>5</real>
+			<real>15</real>
+			<real>60</real>
+		</array>
+	</dict>
 </array>
 </plist>
