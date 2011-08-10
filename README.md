@@ -6,4 +6,4 @@ Just download the current ``*.safariextz`` file and double click it. You need to
 Credits
 =======
 
-This extension is based on @danls original Google+ extension. Thanks!
+This extension is based on [danls](https://github.com/danls/Google-Plus-Safari-Extension) original Google+ extension. Thanks!
