@@ -39,9 +39,10 @@ function performCommand(event) {
  			var allTabs = browserWindows[i].tabs;
  			for (var x = 0; x < allTabs.length; ++x) {
  				if (typeof allTabs[x].url != 'undefined') {
-	 				if (allTabs[x].url.indexOf("plus.google.com") != -1) {
+	 				if (allTabs[x].url.indexOf("plus.google.com") != -1 || allTabs[x].url.indexOf("about:blank") != -1) {
 	 					browserWindows[i].activate();
 	 					allTabs[x].activate();
+	 					openHomepageOrNotifications(allTabs[x]);
 	 					// console.log("found");
 	 					return;
 	 				}
@@ -49,13 +50,18 @@ function performCommand(event) {
  				// console.log(allTabs[x].url);
  			}
  		}
-	 	if (plusNotificationCount > 0) {
- 	        safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com/u/0/notifications/all";
- 	    } else {
- 	        safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com";
- 	    }
+	 	openHomepageOrNotifications(safari.application.activeBrowserWindow.openTab());
 		break;
 	}
+}
+
+function openHomepageOrNotifications(w) {
+    if (plusNotificationCount > 0) {
+        w.url = "https://plus.google.com/u/0/notifications/all";
+        setTimeout(checkPlusNotifications, 5000);
+    } else {
+        w.url = "https://plus.google.com";
+    }
 }
  
 function validateToolbarItems() {
