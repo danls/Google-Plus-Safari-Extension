@@ -39,7 +39,7 @@ function performCommand(event) {
  			var allTabs = browserWindows[i].tabs;
  			for (var x = 0; x < allTabs.length; ++x) {
  				if (typeof allTabs[x].url != 'undefined') {
-	 				if (allTabs[x].url.indexOf("plus.google.com") != -1 || allTabs[x].url.indexOf("about:blank") != -1) {
+	 				if (allTabs[x].url.indexOf("plus.google.com") != -1 || allTabs[x].url.indexOf("about:blank") != -1 || allTabs[x].url == "") {
 	 					browserWindows[i].activate();
 	 					allTabs[x].activate();
 	 					openHomepageOrNotifications(allTabs[x]);
