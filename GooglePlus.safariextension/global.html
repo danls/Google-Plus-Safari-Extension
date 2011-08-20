@@ -1,14 +1,24 @@
 <!DOCTYPE HTML>
 <script>
-var plusNotificationCount = safari.extension.settings.plusNotificationCount;
 console.log("Loaded GooglePlus");
 
-checkPlusNotifications();
-setInterval(checkPlusNotifications, 5000);
+var plusNotificationCount = safari.extension.settings.plusNotificationCount;
+var timerId = -1;
 
+checkPlusNotifications();
+timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 60 * 1000); // every x minutes
+
+function updateFrequencyChanged() {
+    if (event.key == "updateFrequency") {
+        clearInterval(timerId);
+        timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 60 * 1000); // every x minutes
+    }
+}
+ 
+safari.extension.settings.addEventListener("change", updateFrequencyChanged, false);
 safari.application.addEventListener("validate", performValidate, false);
 safari.application.addEventListener("command", performCommand, false);
- 
+
 function performValidate(event) {
 	switch (event.command) {
 	case "press-plus":
@@ -38,7 +48,11 @@ function performCommand(event) {
  				// console.log(allTabs[x].url);
  			}
  		}
-	 	safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com";
+	 	if (plusNotificationCount > 0) {
+ 	        safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com/u/0/notifications/all";
+ 	    } else {
+ 	        safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com";
+ 	    }
 		break;
 	}
 }
