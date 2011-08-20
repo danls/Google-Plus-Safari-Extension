@@ -3,12 +3,23 @@
 var plusNotificationCount = safari.extension.settings.plusNotificationCount;
 console.log("Loaded GooglePlus");
 
+var timerId = -1;
+
 checkPlusNotifications();
-setInterval(checkPlusNotifications, 5000);
+timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 60 * 1000); // every x minutes
+
+function updateFrequencyChanged() {
+    if (event.key == "updateFrequency") {
+        clearInterval(timerId);
+        timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 60 * 1000); // every x minutes
+    }
+}
+ 
+safari.extension.settings.addEventListener("change", updateFrequencyChanged, false);
 
 safari.application.addEventListener("validate", performValidate, false);
 safari.application.addEventListener("command", performCommand, false);
- 
+
 function performValidate(event) {
 	switch (event.command) {
 	case "press-plus":
@@ -28,9 +39,10 @@ function performCommand(event) {
  			var allTabs = browserWindows[i].tabs;
  			for (var x = 0; x < allTabs.length; ++x) {
  				if (typeof allTabs[x].url != 'undefined') {
-	 				if (allTabs[x].url.indexOf("plus.google.com") != -1) {
+	 				if (allTabs[x].url.indexOf("plus.google.com") != -1 || allTabs[x].url.indexOf("about:blank") != -1 || allTabs[x].url == "") {
 	 					browserWindows[i].activate();
 	 					allTabs[x].activate();
+	 					openHomepageOrNotifications(allTabs[x]);
 	 					// console.log("found");
 	 					return;
 	 				}
@@ -38,9 +50,18 @@ function performCommand(event) {
  				// console.log(allTabs[x].url);
  			}
  		}
-	 	safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com";
+	 	openHomepageOrNotifications(safari.application.activeBrowserWindow.openTab());
 		break;
 	}
+}
+
+function openHomepageOrNotifications(w) {
+    if (plusNotificationCount > 0) {
+        w.url = "https://plus.google.com/u/0/notifications/all";
+        setTimeout(checkPlusNotifications, 5000);
+    } else {
+        w.url = "https://plus.google.com";
+    }
 }
  
 function validateToolbarItems() {

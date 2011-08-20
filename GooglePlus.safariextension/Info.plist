@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -28,7 +28,7 @@
 				<key>Identifier</key>
 				<string>googleplus</string>
 				<key>Image</key>
-				<string>Add 16x16.png</string>
+				<string>gplus.png</string>
 				<key>Label</key>
 				<string>googleplus</string>
 				<key>Palette Label</key>
@@ -57,9 +57,7 @@
 			<string>All</string>
 		</dict>
 	</dict>
-	<key>Update Manifest URL</key>
-	<string>http://danls.github.com/googleplus-manifest.plist</string>
 	<key>Website</key>
-	<string>http://www.semimagic.com</string>
+	<string>https://github.com/sdietzel/Google-Plus-Safari-Extension</string>
 </dict>
 </plist>
