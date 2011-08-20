@@ -2,7 +2,6 @@
 <script>
 console.log("Loaded GooglePlus");
 
-var plusNotificationCount = safari.extension.settings.plusNotificationCount;
 var timerId = -1;
 
 checkPlusNotifications();
@@ -23,7 +22,7 @@ function performValidate(event) {
 	switch (event.command) {
 	case "press-plus":
 		if ("badge" in event.target)
-			event.target.badge = plusNotificationCount;
+			event.target.badge = safari.extension.settings.plusNotificationCount;
 		break;
 	}
 	// event.target.disabled = !event.target.browserWindow.activeTab.url;
@@ -48,7 +47,9 @@ function performCommand(event) {
  				// console.log(allTabs[x].url);
  			}
  		}
-	 	if (plusNotificationCount > 0) {
+ 		
+ 		// If G+ isn't already open, smart open notifications or G+ main
+	 	if (event.target.badge > 0) {
  	        safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com/u/0/notifications/all";
  	    } else {
  	        safari.application.activeBrowserWindow.openTab().url = "https://plus.google.com";
@@ -67,8 +68,7 @@ function validateToolbarItems() {
 }
 
 function updatePlusNotificationCount(count) {
-	plusNotificationCount = count;
-	safari.extension.settings.plusNotificationCount = plusNotificationCount;
+	safari.extension.settings.plusNotificationCount = count;
 	validateToolbarItems();
 }
 
