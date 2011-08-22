@@ -5,12 +5,12 @@ console.log("Loaded GooglePlus");
 var timerId = -1;
 
 checkPlusNotifications();
-timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 60 * 1000); // every x minutes
+timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 1000); // every x seconds
 
 function updateFrequencyChanged() {
     if (event.key == "updateFrequency") {
         clearInterval(timerId);
-        timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 60 * 1000); // every x minutes
+        timerId = setInterval(checkPlusNotifications, safari.extension.settings.updateFrequency * 1000); // every x seconds
     }
 }
  

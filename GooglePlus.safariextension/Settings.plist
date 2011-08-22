@@ -17,19 +17,21 @@
 		<string>Check for updates every</string>
 		<key>Titles</key>
 		<array>
-			<string>1 minutes</string>
+			<string>2 seconds</string>
+			<string>5 seconds</string>
+			<string>30 seconds</string>
+			<string>1 minute</string>
 			<string>5 minutes</string>
-			<string>15 minutes</string>
-			<string>1 hour</string>
 		</array>
 		<key>Type</key>
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<real>1</real>
+			<real>2</real>
 			<real>5</real>
-			<real>15</real>
+			<real>30</real>
 			<real>60</real>
+			<real>300</real>
 		</array>
 	</dict>
 </array>
